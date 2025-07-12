@@ -1,11 +1,13 @@
 import { Component, signal } from '@angular/core';
+import DEFAULT_TREE_NODES from './components/tree/tree-data';
+import { Tree } from './components/tree/tree.component';
 
 @Component({
   selector: 'app-root',
-  imports: [],
+  imports: [Tree],
   templateUrl: './app.html',
-  styleUrl: './app.scss'
+  styleUrl: './app.scss',
 })
 export class App {
-  protected readonly title = signal('tree-app');
+  treeNodes = DEFAULT_TREE_NODES;
 }
