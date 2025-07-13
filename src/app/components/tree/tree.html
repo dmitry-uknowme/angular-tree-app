@@ -4,7 +4,7 @@
     <app-tree-node
       [node]="node"
       [expanded]="isExpanded(node)"
-      (toggle)="toggleExpand(node)"
+      (nodeClick)="onNodeClick($event)"
     >
     </app-tree-node>
     <span>({{ childrenCount(node) }})</span>
@@ -13,7 +13,7 @@
     <button (click)="toggleExpand(node)">
       <img src="/assets/images/arrow_up_list.svg" alt="" />
     </button>
-    } @if (canExpandAll && !isExpanded(node)) {
+    } @if (canExpandAll && !isExpanded(node) && canNodeExpand(node)) {
     <button (click)="expandAll(node)">
       <img src="/assets/images/arrow_down_list.svg" alt="" />
     </button>
@@ -22,6 +22,7 @@
   @if (isExpanded(node)) {
   <app-tree
     [nodes]="node.children"
+    (nodeClick)="onNodeClick($event)"
     [canExpand]="true"
     [canExpandAll]="false"
     [expandedMapState]="getExpandedMap()"

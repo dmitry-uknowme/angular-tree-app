@@ -87,9 +87,17 @@
 
 <main class="main">
   <div class="top-tree">
-    <app-tree [nodes]="treeNodes"></app-tree>
+    <app-tree
+      [nodes]="treeNodes"
+      [canExpand]="false"
+      [canExpandAll]="false"
+    ></app-tree>
   </div>
   <div class="divider" role="separator" aria-label="Divider"></div>
+  <div class="bottom-tree">
+    <app-tree [nodes]="treeNodes"></app-tree>
+  </div>
+
   <!-- <div class="bottom-tree">
     <app-new-tree [nodes]="treeNodes" [nodeTpl]="nodeTpl" #tree>
       <ng-template

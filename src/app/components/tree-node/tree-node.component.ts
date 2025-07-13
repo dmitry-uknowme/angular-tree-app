@@ -32,12 +32,12 @@ export interface ITreeNode {
 export class TreeNodeComponent {
   @Input() node!: ITreeNode;
   @Input() expanded = true;
-  @Output() toggle = new EventEmitter<MouseEvent>();
+  @Output() nodeClick = new EventEmitter<ITreeNode>();
 
   @Input() canExpand = false;
   @Input() canExpandAll = false;
 
-  onToggle(event: MouseEvent) {
-    this.toggle.emit(event);
+  onClick() {
+    this.nodeClick.emit(this.node);
   }
 }

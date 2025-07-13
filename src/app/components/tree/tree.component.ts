@@ -1,7 +1,10 @@
 import {
   Component,
   computed,
+  EventEmitter,
   Input,
+  output,
+  Output,
   Signal,
   signal,
   WritableSignal,
@@ -25,6 +28,7 @@ export class TreeComponent {
   private _localExpandedMap = new Map<number, WritableSignal<boolean>>();
   private _injectedExpandedMap? = new Map<number, WritableSignal<boolean>>();
 
+  @Output() nodeClick = new EventEmitter<ITreeNode>();
   @Input() canExpand: boolean = false;
   @Input() canExpandAll: boolean = true;
   @Input() set expandedMapState(
@@ -86,10 +90,31 @@ export class TreeComponent {
     return this.childrenCountMap().get(node.id) ?? 0;
   }
 
+  canNodeExpand(node: ITreeNode) {
+    const childCount = this.childrenCountMap().get(node.id)!;
+    return childCount > 0;
+  }
+
   toggleExpand(node: ITreeNode) {
     const expandedMap = this.getExpandedMap();
     const signal = expandedMap.get(node.id)!;
     signal.update((v) => !v);
+  }
+
+  // finalOnClick() {
+  //   return this.onNodeClick
+  //     ? this.onNodeClick
+  //     : this.canExpand
+  //     ? this.toggleExpand
+  //     : () => null;
+  // }
+
+  onNodeClick(node: ITreeNode) {
+    debugger;
+    this.nodeClick.emit(node);
+    if (this.canExpand && this.canNodeExpand(node)) {
+      this.toggleExpand(node);
+    }
   }
 
   expandAll(node: ITreeNode) {
@@ -110,35 +135,4 @@ export class TreeComponent {
       }
     }
   }
-
-  // collapseAll(node: ITreeNode) {
-  //   const expandedMap = this.getExpandedMap();
-  //   const stack: ITreeNode[] = [node];
-
-  //   while (stack.length) {
-  //     const current = stack.pop()!;
-
-  //     if (!expandedMap.has(current.id)) {
-  //       expandedMap.set(current.id, signal(true));
-  //     } else {
-  //       expandedMap.get(current.id)!.set(true);
-  //     }
-
-  //     for (const child of current.children) {
-  //       stack.push(child);
-  //     }
-  //   }
-  // }
-
-  // expandAll(node: ITreeNode) {
-  //   const expandedMap = this.getExpandedMap();
-  //   if (!expandedMap.has(node.id)) {
-  //     expandedMap.set(node.id, signal(true));
-  //   } else {
-  //     expandedMap.get(node.id)!.set(true);
-  //   }
-  //   for (const child of node.children) {
-  //     this.expandAll(child);
-  //   }
-  // }
 }

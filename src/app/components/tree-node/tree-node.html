@@ -1,5 +1,5 @@
 <div class="tree-node" [class.deleted]="node.is_deleted">
-  <span (click)="onToggle($event)" class="toggle">
+  <span (click)="onClick()" class="toggle">
     @if (node.children.length) { @if (expanded) {
     <img src="assets/images/folder_input.svg" alt="" />
     } @else {
