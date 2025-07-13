@@ -7,6 +7,17 @@
       (toggle)="toggleExpand(node)"
     >
     </app-tree-node>
+    <span>({{ childrenCount(node) }})</span>
+
+    @if (canExpandAll && isExpanded(node)) {
+    <button (click)="toggleExpand(node)">
+      <img src="/assets/images/arrow_up_list.svg" alt="" />
+    </button>
+    } @if (canExpandAll && !isExpanded(node)) {
+    <button (click)="expandAll(node)">
+      <img src="/assets/images/arrow_down_list.svg" alt="" />
+    </button>
+    }
   </li>
   @if (isExpanded(node)) {
   <app-tree
