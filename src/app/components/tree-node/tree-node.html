@@ -1,1 +1,9 @@
-<div class="tree-node" [class.deleted]="node.is_deleted"></div>
+<div class="tree-node" [class.deleted]="node.is_deleted">
+  <span (click)="onToggle($event)" class="toggle">
+    @if (node.children.length) { @if (expanded) {
+    <img src="assets/images/folder_input.svg" alt="" />
+    } @else {
+    <img src="assets/images/folder_down.svg" alt="" /> } }
+  </span>
+  <span>{{ node.title }}</span>
+</div>

@@ -1,7 +1,19 @@
 <ul class="tree">
   @for (node of nodes; track node.id) {
-  <li>
-    <app-tree-node [node]="node"></app-tree-node>
+  <li style="display: flex">
+    <app-tree-node
+      [node]="node"
+      [expanded]="isExpanded(node)"
+      (toggle)="toggleExpand(node)"
+    >
+    </app-tree-node>
   </li>
-  }
+  @if (isExpanded(node)) {
+  <app-tree
+    [nodes]="node.children"
+    [canExpand]="true"
+    [canExpandAll]="false"
+    [expandedMapState]="getExpandedMap()"
+  ></app-tree>
+  } }
 </ul>

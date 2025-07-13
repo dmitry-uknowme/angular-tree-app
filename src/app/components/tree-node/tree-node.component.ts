@@ -1,4 +1,18 @@
-import { Component, Input, input } from '@angular/core';
+import {
+  Component,
+  computed,
+  EventEmitter,
+  Input,
+  input,
+  Output,
+  signal,
+} from '@angular/core';
+import { TreeComponent } from '../tree/tree.component';
+import {
+  CommonModule,
+  NgOptimizedImage,
+  provideImgixLoader,
+} from '@angular/common';
 
 export interface ITreeNode {
   id: number;
@@ -11,8 +25,19 @@ export interface ITreeNode {
   standalone: true,
   selector: 'app-tree-node',
   templateUrl: './tree-node.html',
+  styleUrls: ['./tree-node.scss'],
+  imports: [CommonModule],
+  // providers: [provideImgixLoader('/assets/images')],
 })
-export class TreeNode {
-  // node = input<TreeNode>();
+export class TreeNodeComponent {
   @Input() node!: ITreeNode;
+  @Input() expanded = true;
+  @Output() toggle = new EventEmitter<MouseEvent>();
+
+  @Input() canExpand = false;
+  @Input() canExpandAll = false;
+
+  onToggle(event: MouseEvent) {
+    this.toggle.emit(event);
+  }
 }
