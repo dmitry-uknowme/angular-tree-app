@@ -1,4 +1,6 @@
-const DEFAULT_TREE_NODES_DATA = [
+import { ITreeNode } from '../tree-node/tree-node.component';
+
+const DEFAULT_TREE_NODES_DATA: ITreeNode[] = [
   {
     id: 1,
     title: 'Значение 1',

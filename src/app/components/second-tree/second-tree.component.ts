@@ -5,11 +5,11 @@ import { ITreeNode } from '../tree-node/tree-node.component';
 
 @Component({
   standalone: true,
-  selector: 'app-first-tree',
-  templateUrl: './first-tree.html',
+  selector: 'app-second-tree',
+  templateUrl: './second-tree.html',
   imports: [CommonModule, TreeComponent],
 })
-export class FirstTreeComponent {
+export class SecondTreeComponent {
   @Input() nodes!: ITreeNode[];
 
   onNodeClick(node: ITreeNode) {

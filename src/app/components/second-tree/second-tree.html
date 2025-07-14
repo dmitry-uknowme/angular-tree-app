@@ -4,14 +4,6 @@
   [canExpandAll]="false"
 >
   <ng-template #nodeTemplate let-node let-tree="tree">
-    <!-- <div class="tree-node">
-      <ng-container
-        *ngTemplateOutlet="
-          tree.defaultExpandButtonsTemplate;
-          context: { $implicit: node }
-        "
-      ></ng-container>
-    </div> -->
     <span>{{ node.id }} {{ node.title }} {{ node.is_deleted }}</span>
   </ng-template>
 </app-tree>

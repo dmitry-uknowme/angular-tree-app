@@ -1,9 +1,24 @@
 <div class="tree-node" [class.deleted]="node.is_deleted">
+  <ng-container *ngIf="nodeTemplate; else defaultNode">
+    <ng-container
+      *ngTemplateOutlet="nodeTemplate; context: { $implicit: node }"
+    />
+  </ng-container>
+  <ng-template #defaultNode>
+    {{ node.title }}
+  </ng-template>
   <span (click)="onClick()" class="toggle">
     @if (node.children.length) { @if (expanded) {
     <img src="assets/images/folder_input.svg" alt="" />
     } @else {
     <img src="assets/images/folder_down.svg" alt="" /> } }
   </span>
-  <span>{{ node.title }}</span>
+  <!-- <span>{{ node.title }}</span> -->
 </div>
+
+<ng-template #defaultExpandButton>
+  @if (node.children.length) { @if (expanded) {
+  <img src="assets/images/folder_input.svg" alt="" />
+  } @else {
+  <img src="assets/images/folder_down.svg" alt="" /> } }
+</ng-template>

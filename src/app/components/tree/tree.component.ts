@@ -1,12 +1,15 @@
 import {
   Component,
   computed,
+  ContentChild,
   EventEmitter,
   Input,
   output,
   Output,
   Signal,
   signal,
+  TemplateRef,
+  ViewChild,
   WritableSignal,
 } from '@angular/core';
 import { ITreeNode, TreeNodeComponent } from '../tree-node/tree-node.component';
@@ -27,6 +30,7 @@ export class TreeComponent {
   private _nodes = signal<ITreeNode[]>([]);
   private _localExpandedMap = new Map<number, WritableSignal<boolean>>();
   private _injectedExpandedMap? = new Map<number, WritableSignal<boolean>>();
+  @ContentChild('nodeTemplate') nodeTemplateRef?: TemplateRef<any>;
 
   @Output() nodeClick = new EventEmitter<ITreeNode>();
   @Input() canExpand: boolean = false;
@@ -56,7 +60,7 @@ export class TreeComponent {
     const stack1: ITreeNode[] = [...nodes];
     const stack2: ITreeNode[] = [];
 
-    // Сначала проходим все узлы в прямом порядке
+    // Проходим все узлы в прямом порядке
     while (stack1.length) {
       const node = stack1.pop()!;
       stack2.push(node);
@@ -65,12 +69,12 @@ export class TreeComponent {
       }
     }
 
-    // Затем считаем снизу вверх (обратный обход)
+    // Считаем снизу вверх (обратный обход)
     for (const node of stack2.reverse()) {
       let total = 0;
       for (const child of node.children) {
-        total += 1; // прямой потомок
-        total += map.get(child.id) ?? 0; // и все его потомки
+        total += 1;
+        total += map.get(child.id) ?? 0;
       }
       map.set(node.id, total);
     }
@@ -110,7 +114,6 @@ export class TreeComponent {
   // }
 
   onNodeClick(node: ITreeNode) {
-    debugger;
     this.nodeClick.emit(node);
     if (this.canExpand && this.canNodeExpand(node)) {
       this.toggleExpand(node);

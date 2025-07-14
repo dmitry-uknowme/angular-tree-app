@@ -87,15 +87,11 @@
 
 <main class="main">
   <div class="top-tree">
-    <app-tree
-      [nodes]="treeNodes"
-      [canExpand]="false"
-      [canExpandAll]="false"
-    ></app-tree>
+    <app-first-tree [nodes]="treeNodes" />
   </div>
   <div class="divider" role="separator" aria-label="Divider"></div>
   <div class="bottom-tree">
-    <app-tree [nodes]="treeNodes"></app-tree>
+    <app-second-tree [nodes]="treeNodes" />
   </div>
 
   <!-- <div class="bottom-tree">

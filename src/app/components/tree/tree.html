@@ -3,11 +3,20 @@
   <li style="display: flex">
     <app-tree-node
       [node]="node"
+      [nodeTemplate]="nodeTemplateRef"
       [expanded]="isExpanded(node)"
       (nodeClick)="onNodeClick($event)"
     >
     </app-tree-node>
-    <span>({{ childrenCount(node) }})</span>
+
+    <!-- <ng-container *ngIf="nodeTemplateRef; else defaultNode">
+      <ng-container
+        *ngTemplateOutlet="nodeTemplateRef; context: { $implicit: node }"
+      />
+    </ng-container>
+    <ng-template #defaultNode>
+      {{ node.title }}
+    </ng-template> -->
 
     @if (canExpandAll && isExpanded(node)) {
     <button (click)="toggleExpand(node)">
